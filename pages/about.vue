@@ -1,3 +1,10 @@
+<!--
+ * @Author: LiZhiWei
+ * @Date: 2025-06-24 15:25:01
+ * @LastEditors: LiZhiWei
+ * @LastEditTime: 2025-06-24 15:39:09
+ * @Description: 
+-->
 <script setup lang="ts">
 import { aboutPage, footerData, navbarData, socialLinks } from '~/data'
 
@@ -15,7 +22,7 @@ defineOgImageComponent('About', {
   headline: 'Greetings 👋',
   title: navbarData.homeTitle,
   description: 'Dive into web development with me and learn Js, Ts, Vue, Nuxt, Docker, k8s',
-  link: '/riyad.jpg',
+  link: '/li.jpg',
 })
 </script>
 
@@ -65,7 +72,7 @@ defineOgImageComponent('About', {
             </div>
           </div>
           <div class="sm:hidden block col-span-3 pb-5 dark:text-[#F1F2F4]">
-            <NuxtImg src="/riyad.jpg" width="125" height="115" quality="50" class="rounded-md" />
+            <NuxtImg src="/li.jpg" width="125" height="115" quality="50" class="rounded-md" />
           </div>
         </div>
         <h3 class="text-base sm:text-3xl font-semibold pb-7 sm:pb-12">
@@ -75,7 +82,7 @@ defineOgImageComponent('About', {
         <p>{{ aboutPage.aboutMe }}</p>
       </div>
       <div class="hidden sm:block col-span-3">
-        <NuxtImg src="/riyad.jpg" width="450" height="500" quality="50" class="rounded-md" />
+        <NuxtImg src="/li.jpg" width="450" height="500" quality="50" class="rounded-md" />
       </div>
     </div>
   </div>

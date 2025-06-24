@@ -1,58 +1,58 @@
 export const navbarData = {
-  homeTitle: "Riyad's Blog",
+  homeTitle: "Li's Blog",
 }
 
 export const footerData = {
-  author: 'Al Asad Nur Riyad',
+  author: 'Li',
   aboutAuthor:
-    'Hi! I am Riyad, a Tech enthusiast, problem solver and software engineer. Currently working at FieldNation LLC.',
+    '你好！我是Li，一名技术爱好者、问题解决者和软件工程师。',
   authorInterest:
-    "I have a fair amount of knowledge of Javascript, Typescript, VueJs, and Nuxt. If you have an interesting idea, either open source or paid let's connect.",
+    "我在 Javascript、Typescript、VueJs 和 Nuxt 方面有丰富的知识。如果你有有趣的想法，无论是开源项目还是付费项目，让我们联系吧。",
   aboutTheSite:
-    "This is a personal blog site built with Nuxt3, TailwindCSS, NuxtContent, Nuxt Icon. Currently it's deployed in Vercel.",
+    "这是一个使用 Nuxt3、TailwindCSS、NuxtContent、Nuxt Icon 构建的个人博客网站。目前部署在 Vercel 上。",
 }
 
 export const homePage = {
-  title: 'Welcome To My Blog Site',
+  title: '欢迎来到我的博客',
   description:
-    'Get Web Development, Javascript, Typescript, NodeJs, Vue, and Nuxt, Related Articles, Tips, Learning resources and more.',
+    '获取 Web 开发、Javascript、Typescript、NodeJs、Vue 和 Nuxt 相关的文章、技巧、学习资源等。',
 }
 
 export const blogsPage = {
-  title: 'All Blogs',
-  description: 'Here you will find all the blog posts I have written & published on this site.',
+  title: '所有博客',
+  description: '在这里你可以找到我在这个网站上写的和发布的所有博客文章。',
 }
 
 export const categoryPage = {
-  title: 'Categories',
+  title: '分类',
   description:
-    'Blow this category is generated from all the tags are mentioned in the different blog post',
+    '以下分类是从不同博客文章中提到的所有标签生成的',
 }
 
 export const aboutPage = {
-  title: 'Al Asad Nur Riyad',
-  description: 'Software Engineer, Problem Solver, Web Enthusiast.',
+  title: 'Li',
+  description: '软件工程师，问题解决者，Web 技术爱好者。',
   aboutMe:
-    "Hello, fellow human! I'm a software wizard who spends most of his day crafting code spells at @FieldNation in the Workplace Operation team. When I'm not crafting code, you can find me summoning solutions to problems on online judges. Just don't ask me to cast any love spells, my magic only works on machines!",
+    "你好，朋友！我是Li，一名软件工程师，热爱编程和技术。我专注于前端开发，特别是 Vue.js 和 Nuxt.js 生态系统。当我不在编写代码时，你可以发现我在学习新技术或者解决有趣的编程问题。我相信技术可以让世界变得更美好！",
 }
 
 export const seoData = {
-  title: `Riyad's Blog | Riyads Blog`,
-  ogTitle: `Let's learn Javascript, Typescript, Vue, Nuxt, & Problem Solving - Riyads Blog | Riyad's Blog`,
-  description: `Hi I am Riyad. A Software Engineer at FieldNation, with over 3.5+ years experience in software development. - Riyads Blog | Riyad's Blog`,
-  twitterDescription: `Riyad's Blog, where I play around with Nuxt, Vue, and more and showcase my blog, resources, etc - Riyads Blog | Riyad's Blog`,
+  title: `Li's Blog | Li博客`,
+  ogTitle: `学习 Javascript、Typescript、Vue、Nuxt 和问题解决 - Li's Blog`,
+  description: `你好，我是Li。一名软件工程师，专注于前端开发和 Web 技术。`,
+  twitterDescription: `Li的博客，在这里我分享 Nuxt、Vue 等技术内容，展示我的博客、资源等`,
   image:
     'https://res.cloudinary.com/dmecmyphj/image/upload/v1673548905/nuxt-blog/cover_ntgs6u.webp',
-  mySite: 'https://blog-nurriyad.vercel.app',
-  twitterHandle: '@qdnvubp',
-  mailAddress: 'asadnurriyad@gmail.com',
+  mySite: 'https://li-blog.vercel.app',
+  twitterHandle: '@li',
+  mailAddress: 'li@example.com',
 }
 
 export const socialLinks = {
-  githubLink: 'https://github.com/nurRiyad',
-  linkedinLink: 'https://www.linkedin.com/in/nur-riyad/',
-  twitterLink: 'https://twitter.com/qdnvubp',
-  stackoverflowLink: 'https://stackoverflow.com/users/16781395/nur-riyad',
+  githubLink: 'https://github.com/wobushiyoushen0214',
+  linkedinLink: '',
+  twitterLink: '',
+  stackoverflowLink: '',
 }
 
 export const siteMetaData = [

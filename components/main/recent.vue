@@ -1,11 +1,17 @@
 <script lang="ts" setup>
 import type { BlogPost } from '~/types/blog'
 
-// Function to parse dates in the format "1st Mar 2023"
+// Function to parse dates in both English and Chinese formats
 function parseCustomDate(dateStr: string): Date {
-  // Remove ordinal indicators (st, nd, rd, th)
+  // Handle Chinese date format: "2023年1月1日"
+  const chineseDateMatch = dateStr.match(/(\d{4})年(\d{1,2})月(\d{1,2})日/)
+  if (chineseDateMatch) {
+    const [, year, month, day] = chineseDateMatch
+    return new Date(parseInt(year), parseInt(month) - 1, parseInt(day))
+  }
+  
+  // Handle English date format: "1st Mar 2023"
   const cleanDateStr = dateStr.replace(/(\d+)(st|nd|rd|th)/, '$1')
-  // Parse the date
   return new Date(cleanDateStr)
 }
 

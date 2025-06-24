@@ -2,7 +2,33 @@
 import Fuse from 'fuse.js'
 import type { BlogPost } from '~/types/blog'
 
-const { data } = await useAsyncData('all-blog-post', () => queryCollection('content').all())
+// Function to parse dates in the format "1st Mar 2023" or "2025年6月21日"
+function parseCustomDate(dateStr: string): Date {
+  // Handle Chinese date format
+  if (dateStr.includes('年') && dateStr.includes('月') && dateStr.includes('日')) {
+    const match = dateStr.match(/(\d{4})年(\d{1,2})月(\d{1,2})日/)
+    if (match) {
+      const [, year, month, day] = match
+      return new Date(parseInt(year), parseInt(month) - 1, parseInt(day))
+    }
+  }
+  
+  // Handle English date format
+  const cleanDateStr = dateStr.replace(/(\d+)(st|nd|rd|th)/, '$1')
+  return new Date(cleanDateStr)
+}
+
+const { data } = await useAsyncData('all-blog-post', () => 
+  queryCollection('content')
+    .all()
+    .then((data) => {
+      return data.sort((a, b) => {
+        const aDate = parseCustomDate(a.meta.date as string)
+        const bDate = parseCustomDate(b.meta.date as string)
+        return bDate.getTime() - aDate.getTime()
+      })
+    })
+)
 
 const elementPerPage = ref(5)
 const pageNumber = ref(1)
