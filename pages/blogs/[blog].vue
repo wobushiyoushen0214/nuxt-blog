@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import type { BlogPost } from '@/types/blog'
-import { navbarData, seoData } from '~/data'
 
 const { path } = useRoute()
 
-const { data: articles, error } = await useAsyncData(`blog-post-${path}`, () =>
-  queryCollection('content').path(path).first(),
+const { data: articles, error } = await useAsyncData(`blog-post-${path}`, async () =>
+  await queryCollection('content').path(path).first(),
 )
 
 if (error.value) navigateTo('/404')
@@ -17,66 +16,23 @@ const data = computed<BlogPost>(() => {
     description: articles.value?.description || 'no-description available',
     image: meta?.image || '/not-found.jpg',
     alt: meta?.alt || 'no alter data available',
-    ogImage: (articles?.value?.ogImage as unknown as string) || '/not-found.jpg',
+    ogImage: meta?.ogImage || '/not-found.jpg',
     date: meta?.date || 'not-date-available',
     tags: meta?.tags || [],
     published: meta?.published || false,
   }
 })
 
-useHead({
-  title: data.value.title || '',
-  meta: [
-    { name: 'description', content: data.value.description },
-    {
-      name: 'description',
-      content: data.value.description,
-    },
-    // Test on: https://developers.facebook.com/tools/debug/ or https://socialsharepreview.com/
-    { property: 'og:site_name', content: navbarData.homeTitle },
-    { property: 'og:type', content: 'website' },
-    {
-      property: 'og:url',
-      content: `${seoData.mySite}/${path}`,
-    },
-    {
-      property: 'og:title',
-      content: data.value.title,
-    },
-    {
-      property: 'og:description',
-      content: data.value.description,
-    },
-    {
-      property: 'og:image',
-      content: data.value.ogImage || data.value.image,
-    },
-    // Test on: https://cards-dev.twitter.com/validator or https://socialsharepreview.com/
-    { name: 'twitter:site', content: '@qdnvubp' },
-    { name: 'twitter:card', content: 'summary_large_image' },
-    {
-      name: 'twitter:url',
-      content: `${seoData.mySite}/${path}`,
-    },
-    {
-      name: 'twitter:title',
-      content: data.value.title,
-    },
-    {
-      name: 'twitter:description',
-      content: data.value.description,
-    },
-    {
-      name: 'twitter:image',
-      content: data.value.ogImage || data.value.image,
-    },
-  ],
-  link: [
-    {
-      rel: 'canonical',
-      href: `${seoData.mySite}/${path}`,
-    },
-  ],
+// 使用新的 SEO composable
+useSeo({
+  title: data.value.title,
+  description: data.value.description,
+  image: data.value.image,
+  type: 'article',
+  author: 'LiZhiWei',
+  publishedTime: data.value.date,
+  tags: data.value.tags,
+  category: data.value.tags?.[0] // 使用第一个标签作为分类
 })
 
 console.log(articles.value)
@@ -91,7 +47,25 @@ defineOgImageComponent('Test', {
 </script>
 
 <template>
-  <div class="px-6 container max-w-5xl mx-auto sm:grid grid-cols-12 gap-x-12">
+  <div>
+    <!-- 阅读进度条 -->
+    <UiReadingProgress 
+      :show-circular="true"
+      target=".prose"
+    />
+    
+    <!-- 结构化数据 -->
+    <UiStructuredData
+      :title="data.title"
+      :description="data.description"
+      :image="data.image"
+      :date="data.date"
+      author="Riyad"
+      :tags="data.tags"
+      type="article"
+    />
+    
+    <div class="px-6 container max-w-5xl mx-auto sm:grid grid-cols-12 gap-x-12">
     <div class="col-span-12 lg:col-span-9">
       <BlogHeader
         :title="data.title"
@@ -110,6 +84,22 @@ defineOgImageComponent('Test', {
           </template>
         </ContentRenderer>
       </div>
+      
+      <!-- 社交分享 -->
+      <UiSocialShare 
+        :share-title="data.title"
+        :description="data.description"
+        :hashtags="data.tags"
+        :platforms="['twitter', 'facebook', 'linkedin', 'weibo']"
+        layout="horizontal"
+        size="medium"
+      />
+      
+      <!-- 评论系统 -->
+      <UiComments 
+        :identifier="path"
+        :title="data.title"
+      />
     </div>
     <BlogToc />
 
@@ -123,6 +113,7 @@ defineOgImageComponent('Test', {
         class="p-1"
         aria-label="Share with {network}"
       /> -->
+    </div>
     </div>
   </div>
 </template>

@@ -1,15 +1,21 @@
+/*
+ * @Author: LiZhiWei
+ * @Date: 2025-09-15 14:44:39
+ * @LastEditors: LiZhiWei
+ * @LastEditTime: 2025-09-17 14:46:21
+ * @Description: 
+ */
 export const navbarData = {
   homeTitle: "Li's Blog",
 }
 
 export const footerData = {
   author: 'Li',
-  aboutAuthor:
-    '你好！我是Li，一名技术爱好者、问题解决者和软件工程师。',
+  aboutAuthor: '你好！我是Li，一名技术爱好者、问题解决者和软件工程师。',
   authorInterest:
-    "我在 Javascript、Typescript、VueJs 和 Nuxt 方面有丰富的知识。如果你有有趣的想法，无论是开源项目还是付费项目，让我们联系吧。",
+    '我在 Javascript、Typescript、VueJs 和 Nuxt 方面有丰富的知识。如果你有有趣的想法，无论是开源项目还是付费项目，让我们联系吧。',
   aboutTheSite:
-    "这是一个使用 Nuxt3、TailwindCSS、NuxtContent、Nuxt Icon 构建的个人博客网站。目前部署在 Vercel 上。",
+    '这是一个使用 Nuxt3、TailwindCSS、NuxtContent、Nuxt Icon 构建的个人博客网站。目前部署在 Vercel 上。',
 }
 
 export const homePage = {
@@ -25,15 +31,14 @@ export const blogsPage = {
 
 export const categoryPage = {
   title: '分类',
-  description:
-    '以下分类是从不同博客文章中提到的所有标签生成的',
+  description: '以下分类是从不同博客文章中提到的所有标签生成的',
 }
 
 export const aboutPage = {
   title: 'Li',
   description: '软件工程师，问题解决者，Web 技术爱好者。',
   aboutMe:
-    "你好，朋友！我是Li，一名软件工程师，热爱编程和技术。我专注于前端开发，特别是 Vue.js 和 Nuxt.js 生态系统。当我不在编写代码时，你可以发现我在学习新技术或者解决有趣的编程问题。我相信技术可以让世界变得更美好！",
+    '你好，朋友！我是Li，一名软件工程师，热爱编程和技术。我专注于前端开发，特别是 Vue.js 和 Nuxt.js 生态系统。当我不在编写代码时，你可以发现我在学习新技术或者解决有趣的编程问题。我相信技术可以让世界变得更美好！',
 }
 
 export const seoData = {
@@ -45,7 +50,7 @@ export const seoData = {
     'https://res.cloudinary.com/dmecmyphj/image/upload/v1673548905/nuxt-blog/cover_ntgs6u.webp',
   mySite: 'https://li-blog.vercel.app',
   twitterHandle: '@li',
-  mailAddress: 'li@example.com',
+  mailAddress: '907574271@qq.com',
 }
 
 export const socialLinks = {

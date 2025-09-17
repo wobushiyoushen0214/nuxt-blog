@@ -71,7 +71,15 @@ const formattedLink = computed(() => {
     </div>
 
     <div v-if="formattedLink" class="absolute top-[200px] right-[70px]">
-      <img :src="formattedLink" :alt="title" class="w-96 h-52 rounded-lg object-cover" />
+      <NuxtImg 
+        :src="formattedLink" 
+        :alt="title" 
+        width="384" 
+        height="208" 
+        quality="80"
+        format="webp"
+        class="w-96 h-52 rounded-lg object-cover" 
+      />
     </div>
   </div>
 </template>

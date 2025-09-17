@@ -1,8 +1,15 @@
+<!--
+ * @Author: LiZhiWei
+ * @Date: 2025-09-15 14:44:39
+ * @LastEditors: LiZhiWei
+ * @LastEditTime: 2025-09-16 09:57:58
+ * @Description: 
+-->
 <script setup lang="ts">
-useHead({
+useHead({   
   title: '404',
   meta: [
-    {
+    { 
       name: 'description',
       content: 'Page not found',
     },
@@ -19,7 +26,7 @@ defineOgImageComponent('About', {
 <template>
   <div class="py-5">
     <div class="container max-w-xl mx-auto">
-      <Logo404 />
+      <LogoNotFound />
     </div>
   </div>
 </template>

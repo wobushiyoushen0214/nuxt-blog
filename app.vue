@@ -10,8 +10,16 @@ useHead({
 </script>
 
 <template>
-  <div class="bg-[#F1F2F4] dark:text-zinc-300 dark:bg-slate-950">
-    <NuxtLoadingIndicator />
+  <div
+    class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 dark:text-zinc-300 transition-all duration-700 ease-in-out"
+  >
+    <NuxtLoadingIndicator
+      class="bg-gradient-to-r from-primary-500 to-accent-500"
+      color="linear-gradient(90deg, #3B82F6, #8B5CF6, #06B6D4)"
+      :height="3"
+      :duration="2000"
+      :throttle="200"
+    />
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>

@@ -1,5 +1,15 @@
+<!--
+ * @Author: LiZhiWei
+ * @Date: 2025-09-15 14:44:39
+ * @LastEditors: LiZhiWei
+ * @LastEditTime: 2025-09-17 14:31:29
+ * @Description: 
+-->
 <script lang="ts" setup>
 import type { BlogPost } from '@/types/blog'
+import BlogCard from '~/components/blog/card.vue'
+import BlogEmpty from '~/components/blog/empty.vue'
+import CategoryTopic from '~/components/category/topic.vue'
 const route = useRoute()
 
 // take category from route params & make first char upper
@@ -12,16 +22,13 @@ const category = computed(() => {
   return strName
 })
 
-const { data } = await useAsyncData(`category-data-${category.value}`, () =>
-  queryCollection('content')
-    .all()
-    .then((articles) =>
-      articles.filter((article) => {
-        const meta = article.meta as unknown as BlogPost
-        return meta.tags.includes(category.value)
-      }),
-    ),
-)
+const { data } = await useAsyncData(`category-data-${category.value}`, async () => {
+  const articles = await queryCollection('content').where('path', 'LIKE', '/blogs/%').all()
+  return articles.filter((article: any) => {
+    const meta = article.meta as unknown as BlogPost
+    return meta.tags.includes(category.value)
+  })
+})
 
 const formattedData = computed(() => {
   return data.value?.map((articles) => {
@@ -39,6 +46,8 @@ const formattedData = computed(() => {
     }
   })
 })
+
+
 
 useHead({
   title: category.value,
@@ -62,23 +71,13 @@ defineOgImage({
 </script>
 
 <template>
-  <main class="container max-w-5xl mx-auto text-zinc-600 px-4">
-    <CategoryTopic />
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-      <BlogCard
-        v-for="post in formattedData"
-        :key="post.title"
-        :path="post.path"
-        :title="post.title"
-        :date="post.date"
-        :description="post.description"
-        :image="post.image"
-        :alt="post.alt"
-        :og-image="post.ogImage"
-        :tags="post.tags"
-        :published="post.published"
-      />
-      <BlogEmpty v-if="data?.length === 0" />
-    </div>
-  </main>
+    <main class="container max-w-5xl mx-auto text-zinc-600 px-4">
+        <CategoryTopic />
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            <BlogCard v-for="post in formattedData" :key="post.title" :path="post.path" :title="post.title"
+                :date="post.date" :description="post.description" :image="post.image" :alt="post.alt"
+                :og-image="post.ogImage" :tags="post.tags" :published="post.published" />
+            <BlogEmpty v-if="data?.length === 0" />
+        </div>
+    </main>
 </template>
