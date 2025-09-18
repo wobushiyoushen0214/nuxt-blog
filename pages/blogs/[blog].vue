@@ -4,7 +4,7 @@ import type { BlogPost } from '@/types/blog'
 const { path } = useRoute()
 
 const { data: articles, error } = await useAsyncData(`blog-post-${path}`, async () =>
-  await queryCollection('content').path(path).first(),
+  await queryContent(path).findOne(),
 )
 
 if (error.value) navigateTo('/404')

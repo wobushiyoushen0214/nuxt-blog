@@ -5,6 +5,8 @@
  * @LastEditTime: 2025-09-17 14:39:00
  * @Description: 
  */
+import { serverQueryContent } from '#content/server'
+
 export default defineEventHandler(async (event) => {
   const query = getQuery(event)
   const searchTerm = query.q as string
@@ -18,7 +20,7 @@ export default defineEventHandler(async (event) => {
 
   try {
     // 从数据库获取所有博客内容
-    const blogs = await queryCollection('content').where('path', 'LIKE', '/blogs/%').all()
+    const blogs = await serverQueryContent(event, '/blogs').find()
     
     // 搜索逻辑
     const searchResults = blogs.filter((blog) => {

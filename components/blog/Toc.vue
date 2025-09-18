@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const { path } = useRoute()
 const { data: articles } = await useAsyncData(`toc-${path}`, async () => 
-  await queryCollection('content').path(path).first()
+  await queryContent(path).findOne()
 )
 
 const links = articles.value?.body?.toc?.links || []

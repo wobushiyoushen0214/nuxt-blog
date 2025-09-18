@@ -8,7 +8,7 @@ const isSearching = ref(false)
 const searchInputRef = ref(null)
 
 const { data: blogs } = await useAsyncData('blogs', async () => {
-  return await queryCollection('content').where('path', 'LIKE', '/blogs/%').all()
+  return await queryContent('/blogs').find()
 })
 
 const elementPerPage = ref(5)

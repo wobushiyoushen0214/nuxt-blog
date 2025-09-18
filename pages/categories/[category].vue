@@ -23,7 +23,7 @@ const category = computed(() => {
 })
 
 const { data } = await useAsyncData(`category-data-${category.value}`, async () => {
-  const articles = await queryCollection('content').where('path', 'LIKE', '/blogs/%').all()
+  const articles = await queryContent('/blogs').find()
   return articles.filter((article: any) => {
     const meta = article.meta as unknown as BlogPost
     return meta.tags.includes(category.value)

@@ -2,11 +2,11 @@
  * @Author: LiZhiWei
  * @Date: 2025-06-24 15:25:01
  * @LastEditors: LiZhiWei
- * @LastEditTime: 2025-09-15 15:42:01
+ * @LastEditTime: 2025-09-18 08:56:53
  * @Description: 
 -->
 <script setup lang="ts">
-import { aboutPage, footerData, navbarData, socialLinks } from '~/data'
+import { aboutPage, footerData, navbarData } from '~/data';
 
 useHead({
   title: 'About',
@@ -36,7 +36,7 @@ defineOgImageComponent('About', {
               {{ aboutPage.title }}
             </h1>
 
-            <div class="my-3 space-x-2 md:space-x-3 pb-10">
+            <!-- <div class="my-3 space-x-2 md:space-x-3 pb-10">
               <NuxtLink
                 :to="socialLinks.githubLink"
                 target="_blank"
@@ -69,7 +69,7 @@ defineOgImageComponent('About', {
               >
                 <Icon name="fa:stack-overflow" size="1em" />
               </NuxtLink>
-            </div>
+            </div> -->
           </div>
           <div class="sm:hidden block col-span-3 pb-5 dark:text-[#F1F2F4]">
             <NuxtImg src="/li.jpg" width="125" height="115" quality="50" class="rounded-md" />

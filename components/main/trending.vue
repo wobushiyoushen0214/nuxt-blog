@@ -10,14 +10,14 @@ import type { BlogPost } from '~/types/blog'
 
 // 使用 shallowRef 优化性能，避免深度响应式
 const { data } = await useAsyncData('trending-post', async () =>
-  await queryCollection('content').where('path', 'LIKE', '/blogs/%').limit(3).all(),
+  await queryContent('/blogs').limit(3).find(),
   {
     transform: (data: any[]) => {
       // 在服务端进行数据转换，减少客户端计算
       return data?.map((articles: any) => {
         const meta = articles.meta as unknown as BlogPost
         return {
-          path: articles.path,
+          path: articles._path,
           title: articles.title || 'no-title available',
           description: articles.description || 'no-description available',
           image: meta.image || '/not-found.jpg',

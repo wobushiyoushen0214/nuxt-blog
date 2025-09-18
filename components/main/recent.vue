@@ -31,7 +31,7 @@ function parseCustomDate(dateStr: string): Date {
 
 // 优化数据获取，在服务端进行排序和转换
 const { data } = await useAsyncData('recent-post', async () =>
-  await queryCollection('content').where('path', 'LIKE', '/blogs/%').all(),
+  await queryContent('/blogs').find(),
   {
     transform: (data: any[]) => {
       return data
@@ -44,7 +44,7 @@ const { data } = await useAsyncData('recent-post', async () =>
         .map((articles: any) => {
           const meta = articles.meta as unknown as BlogPost
           return {
-            path: articles.path,
+            path: articles._path,
             title: articles.title || 'no-title available',
             description: articles.description || 'no-description available',
             image: meta.image || '/not-found.jpg',

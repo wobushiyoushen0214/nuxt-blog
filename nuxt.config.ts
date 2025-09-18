@@ -174,16 +174,25 @@ export default defineNuxtConfig({
   },
 
   nitro: {
-    preset: 'vercel-edge',
+    // 改为 vercel preset 而不是 vercel-edge，以支持 Node.js 原生模块
+    preset: 'vercel',
     prerender: {
       crawlLinks: true,
       routes: ['/', '/rss.xml', '/about'],
     },
     // 压缩配置
     compressPublicAssets: true,
+    // 外部化 better-sqlite3，避免打包时的绑定文件问题
+    externals: {
+      inline: ['better-sqlite3']
+    },
     // 实验性功能
     experimental: {
       wasm: true
+    },
+    // 添加 rollup 配置来处理原生模块
+    rollupConfig: {
+      external: ['better-sqlite3', '@nuxt/kit', '@nuxt/schema']
     }
   },
 
@@ -231,6 +240,7 @@ export default defineNuxtConfig({
     build: {
       // 代码分割优化
       rollupOptions: {
+        external: ['@nuxt/kit', '@nuxt/schema'],
         output: {
           manualChunks: {
             'vue-vendor': ['vue', 'vue-router'],
@@ -257,7 +267,13 @@ export default defineNuxtConfig({
     // 优化依赖预构建
     optimizeDeps: {
       include: ['vue', '@vueuse/core', '@headlessui/vue']
-    }
+    },
+    // SSR 外部化配置
+    ssr: {
+      external: ['@nuxt/kit', '@nuxt/schema']
+    },
+    // 处理 WASM 文件
+    assetsInclude: ['**/*.wasm']
   },
 
   colorMode: {
@@ -267,13 +283,7 @@ export default defineNuxtConfig({
   },
 
   content: {
-    build: {
-      markdown: {
-        highlight: {
-          theme: 'dracula',
-        },
-      },
-    },
+    highlight: false,
   },
 
   // 开发工具

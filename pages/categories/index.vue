@@ -11,7 +11,7 @@ import CategoryCard from '~/components/category/card.vue'
 import CategoryHero from '~/components/category/hero.vue'
 
 const { data } = await useAsyncData('all-blog-post-by-category', async () =>
-  await queryCollection('content').where('path', 'LIKE', '/blogs/%').all(),
+  await queryContent('/blogs').find(),
 )
 
 const allTags = new Map()
