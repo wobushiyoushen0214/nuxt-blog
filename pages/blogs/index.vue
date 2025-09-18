@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import Fuse from 'fuse.js'
-import ArchiveCard from '~/components/archive/card.vue'
-import ArchiveHero from '~/components/archive/hero.vue'
+import ArchiveCard from '~/components/archive/ArchiveCard.vue'
+import ArchiveHero from '~/components/archive/ArchiveHero.vue'
 // Loading and animation states
 const isLoading = ref(true)
 const isSearching = ref(false)

@@ -1,0 +1,61 @@
+import { I } from './NuxtImg-BwE8PT3p.mjs';
+import { defineComponent, mergeProps, unref, useSSRContext } from 'vue';
+import { ssrRenderAttrs, ssrInterpolate, ssrRenderComponent } from 'vue/server-renderer';
+import { u as pn, f as ya, n as ba, a as Sa } from './server.mjs';
+import { e } from './defineOgImageComponent-5IndG7OM.mjs';
+import '../nitro/nitro.mjs';
+import 'lru-cache';
+import 'devalue';
+import 'consola';
+import 'unhead';
+import 'node:http';
+import 'node:https';
+import 'node:events';
+import 'node:buffer';
+import 'node:fs';
+import 'node:path';
+import 'node:crypto';
+import 'unified';
+import 'mdast-util-to-string';
+import 'micromark';
+import 'unist-util-stringify-position';
+import 'micromark-util-character';
+import 'micromark-util-chunked';
+import 'micromark-util-resolve-all';
+import 'micromark-util-sanitize-uri';
+import 'slugify';
+import 'remark-parse';
+import 'remark-rehype';
+import 'remark-mdc';
+import 'remark-gfm';
+import 'rehype-external-links';
+import 'rehype-sort-attribute-values';
+import 'rehype-sort-attributes';
+import 'rehype-raw';
+import 'detab';
+import 'hast-util-to-string';
+import 'github-slugger';
+import 'unhead/server';
+import 'unhead/utils';
+import 'unhead/plugins';
+import 'vue-bundle-renderer/runtime';
+import 'node:url';
+import 'ipx';
+import 'node:zlib';
+import 'node:stream';
+import 'node:util';
+import 'node:net';
+import 'vue-router';
+import './defineOgImage-BeQ-484b.mjs';
+
+const x = defineComponent({ __name: "about", __ssrInlineRender: true, setup: (o2) => (pn({ title: "About", meta: [{ name: "description", content: ya.aboutAuthor }] }), e("About", { headline: "Greetings \u{1F44B}", title: ba.homeTitle, description: "Dive into web development with me and learn Js, Ts, Vue, Nuxt, Docker, k8s", link: "/li.jpg" }), (o3, s2, l2, p2) => {
+  const u2 = I;
+  s2(`<div${ssrRenderAttrs(mergeProps({ class: "py-5" }, p2))}><div class="sm:grid grid-cols-8 px-6 py-5 sm:py-9 gap-5 container max-w-5xl mx-auto"><div class="col-span-5 max-w-md"><div class="flex justify-between"><div><h1 class="text-xl sm:text-4xl pb-2 font-bold">${ssrInterpolate(unref(Sa).title)}</h1></div><div class="sm:hidden block col-span-3 pb-5 dark:text-[#F1F2F4]">`), s2(ssrRenderComponent(u2, { src: "/li.jpg", width: "125", height: "115", quality: "50", class: "rounded-md" }, null, l2)), s2(`</div></div><h3 class="text-base sm:text-3xl font-semibold pb-7 sm:pb-12">${ssrInterpolate(unref(Sa).description)}</h3><p>${ssrInterpolate(unref(Sa).aboutMe)}</p></div><div class="hidden sm:block col-span-3">`), s2(ssrRenderComponent(u2, { src: "/li.jpg", width: "450", height: "500", quality: "50", class: "rounded-md" }, null, l2)), s2("</div></div></div>");
+}) }), c = x.setup;
+x.setup = (e2, o2) => {
+  const t2 = useSSRContext();
+  return (t2.modules || (t2.modules = /* @__PURE__ */ new Set())).add("pages/about.vue"), c ? c(e2, o2) : void 0;
+};
+
+export { x as default };
+//# sourceMappingURL=about-C5tDdZ9S.mjs.map

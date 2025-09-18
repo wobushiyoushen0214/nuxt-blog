@@ -7,8 +7,8 @@
 -->
 <script lang="ts" setup>
 import { makeFirstCharUpper } from '@/utils/helper'
-import CategoryCard from '~/components/category/card.vue'
-import CategoryHero from '~/components/category/hero.vue'
+import CategoryCard from '~/components/category/CategoryCard.vue'
+import CategoryHero from '~/components/category/CategoryHero.vue'
 
 const { data } = await useAsyncData('all-blog-post-by-category', async () =>
   await queryContent('/blogs').find(),
@@ -16,9 +16,10 @@ const { data } = await useAsyncData('all-blog-post-by-category', async () =>
 
 const allTags = new Map()
 
-data.value?.forEach((item: any) => {
+data.value?.forEach((item) => {
   // 标签数据直接在根级别
-  const tags: Array<string> = item.meta.tags || []
+  const blogItem = item as { tags?: string[] }
+  const tags: Array<string> = blogItem.tags || []
   tags.forEach((tag) => {
     if (allTags.has(tag)) {
       const cnt = allTags.get(tag)

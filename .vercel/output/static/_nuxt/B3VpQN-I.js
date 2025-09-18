@@ -1,0 +1,1 @@
+import{d as t}from"#entry";import{d as r}from"./BKfStdPn.js";import{r as o,w as s}from"./TenLCVZ2.js";function e(e){const i=o({});return s(()=>{const o=t().$nuxtSiteConfig.get(r({resolveRefs:!0},e));i&&o&&Object.assign(i,o)}),delete i._priority,i}export{e as u};

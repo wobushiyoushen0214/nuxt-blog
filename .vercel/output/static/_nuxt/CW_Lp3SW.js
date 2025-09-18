@@ -1,0 +1,1 @@
+import{A as t,I as e,ai as a,J as l}from"./TenLCVZ2.js";const s=t({__name:"ProseCode",props:{code:{type:String,default:""},language:{type:String,default:null},filename:{type:String,default:null},highlights:{type:Array,default:()=>[]},meta:{type:String,default:null}},setup:t=>(t,s)=>(l(),e("div",null,[a(t.$slots,"default")]))});export{s as _};
