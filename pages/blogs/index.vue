@@ -2,13 +2,29 @@
 import Fuse from 'fuse.js'
 import ArchiveCard from '~/components/archive/ArchiveCard.vue'
 import ArchiveHero from '~/components/archive/ArchiveHero.vue'
+
 // Loading and animation states
 const isLoading = ref(true)
 const isSearching = ref(false)
 const searchInputRef = ref(null)
 
-const { data: blogs } = await useAsyncData('blogs', async () => {
-  return await queryContent('/blogs').find()
+const { data: blogs } = await useAsyncData('blogs', () => {
+  // 尝试不同的查询方式
+  return queryContent('blogs').find()
+})
+
+// 在客户端执行调试
+onMounted(() => {
+  console.log('=== BLOGS DEBUG INFO ===')
+  console.log('Blogs data:', blogs.value)
+  console.log('Type:', typeof blogs.value)
+  console.log('Is array:', Array.isArray(blogs.value))
+  console.log('Length:', blogs.value?.length)
+  if (blogs.value && blogs.value.length > 0) {
+    console.log('First blog:', blogs.value[0])
+    console.log('First blog keys:', Object.keys(blogs.value[0]))
+  }
+  console.log('=== END DEBUG ===')
 })
 
 const elementPerPage = ref(5)
@@ -33,33 +49,31 @@ const formattedData = computed(() => {
     return []
   }
   
-  return blogs.value
-    .filter((article: any) => {
-      const path = article.path
-      const meta = article.meta || {}
-      return path && path.startsWith('/blogs/') && meta.published !== false
-    })
-    .map((article: any) => {
-      const meta = article.meta || {}
-      return {
-        path: article.path || '',
-        title: article.title || 'no-title available',
-        description: article.description || 'no-description available',
-        image: meta.image || '/not-found.jpg',
-        alt: meta.alt || 'no alter data available',
-        ogImage: meta.ogImage || '/not-found.jpg',
-        date: meta.date || 'not-date-available',
-        tags: meta.tags || [],
-        published: meta.published !== false,
-      }
-    })
+  // 暂时移除所有过滤条件，直接返回所有文章
+  const formatted = blogs.value.map((article: any) => {
+    return {
+      path: article._path || article.path || '',
+      title: article.title || 'no-title available',
+      description: article.description || 'no-description available',
+      image: article.image || '/not-found.jpg',
+      alt: article.alt || 'no alter data available',
+      ogImage: article.ogImage || '/not-found.jpg',
+      date: article.date || 'not-date-available',
+      tags: article.tags || [],
+      published: article.published !== false,
+    }
+  })
+  
+  return formatted
 })
 
 const fuse = computed(() => {
   return new Fuse(formattedData.value, {
     keys: ['title', 'description'],
-    threshold: 0.4,
+    threshold: 0.3, // 降低阈值，提高匹配度（0.0 = 完全匹配，1.0 = 匹配任何内容）
     includeScore: false,
+    ignoreLocation: true, // 忽略位置，提高匹配度
+    minMatchCharLength: 2, // 最小匹配字符长度
   })
 })
 
@@ -168,17 +182,20 @@ defineOgImage({
             <div class="px-2 sm:px-6 mb-8 animate-slide-up" style="animation-delay: 0.2s">
                 <div class="relative max-w-md mx-auto group">
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <Icon v-if="!isSearching" name="heroicons:magnifying-glass"
+                        <Icon
+v-if="!isSearching" name="heroicons:magnifying-glass"
                             class="h-5 w-5 text-gray-400 group-focus-within:text-primary-500 transition-colors duration-300" />
                         <Icon v-else name="svg-spinners:ring-resize" class="h-5 w-5 text-primary-500" />
                     </div>
-                    <input ref="searchInputRef" v-model="searchTest" placeholder="Search articles..." type="text"
+                    <input
+ref="searchInputRef" v-model="searchTest" placeholder="Search articles..." type="text"
                         class="block w-full pl-10 pr-12 py-3 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 focus:shadow-lg transition-all duration-300 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 hover:shadow-md" />
                     <div v-if="searchTest" class="absolute inset-y-0 right-0 pr-3 flex items-center">
                         <button
                             class="p-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200"
                             @click="searchTest = ''">
-                            <Icon name="heroicons:x-mark"
+                            <Icon
+name="heroicons:x-mark"
                                 class="h-4 w-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300" />
                         </button>
                     </div>
@@ -203,7 +220,8 @@ defineOgImage({
                 <div v-else v-auto-animate class="space-y-6">
                     <template v-for="(post, index) in paginatedData" :key="post.title">
                         <div :style="{ animationDelay: `${index * 100 + 400}ms` }" class="animate-slide-up">
-                            <ArchiveCard :path="post.path" :title="post.title" :date="post.date"
+                            <ArchiveCard
+:path="post.path" :title="post.title" :date="post.date"
                                 :description="post.description" :image="post.image" :alt="post.alt"
                                 :og-image="post.ogImage" :tags="post.tags" :published="post.published" />
                         </div>
@@ -222,7 +240,8 @@ defineOgImage({
                             searchTest ? `Try searching for something else` : 'Check back later for new content'
                             }}
                         </p>
-                        <button v-if="searchTest"
+                        <button
+v-if="searchTest"
                             class="inline-flex items-center px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors duration-200"
                             @click="searchTest = ''">
                             <Icon name="heroicons:arrow-path" class="mr-2 h-4 w-4" />
@@ -233,10 +252,12 @@ defineOgImage({
             </div>
 
             <!-- Pagination -->
-            <div v-if="!isSearching && totalPage > 1"
+            <div
+v-if="!isSearching && totalPage > 1"
                 class="flex justify-center items-center space-x-2 sm:space-x-4 lg:space-x-8 py-8 px-2 sm:px-4 animate-slide-up"
                 style="animation-delay: 0.6s">
-                <button :disabled="pageNumber <= 1"
+                <button
+:disabled="pageNumber <= 1"
                     class="flex items-center gap-2 px-3 sm:px-4 py-2 rounded-lg bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:scale-105 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                     :class="{
             'text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20':
@@ -249,22 +270,26 @@ defineOgImage({
                 <!-- Page Numbers -->
                 <div class="flex items-center gap-1">
                     <template v-for="page in Math.min(totalPage, 5)" :key="page">
-                        <button v-if="page === pageNumber"
+                        <button
+v-if="page === pageNumber"
                             class="px-3 py-2 bg-primary-600 text-white rounded-lg font-medium shadow-md">
                             {{ page }}
                         </button>
-                        <button v-else-if="Math.abs(page - pageNumber) <= 2 || page === 1 || page === totalPage"
+                        <button
+v-else-if="Math.abs(page - pageNumber) <= 2 || page === 1 || page === totalPage"
                             class="px-3 py-2 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 rounded-lg transition-all duration-200"
                             @click="goToPage(page)">
                             {{ page }}
                         </button>
                         <span v-else-if="page === 2 && pageNumber > 4" class="px-2 text-gray-400">...</span>
-                        <span v-else-if="page === totalPage - 1 && pageNumber < totalPage - 3"
+                        <span
+v-else-if="page === totalPage - 1 && pageNumber < totalPage - 3"
                             class="px-2 text-gray-400">...</span>
                     </template>
                 </div>
 
-                <button :disabled="pageNumber >= totalPage"
+                <button
+:disabled="pageNumber >= totalPage"
                     class="flex items-center gap-2 px-3 sm:px-4 py-2 rounded-lg bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:scale-105 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                     :class="{
             'text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20':

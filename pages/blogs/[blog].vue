@@ -35,13 +35,12 @@ useSeo({
   category: data.value.tags?.[0] // 使用第一个标签作为分类
 })
 
-console.log(articles.value)
 
 // Generate OG Image
 defineOgImageComponent('Test', {
-  headline: 'Riyads Blog 👋',
-  title: articles.value?.seo.title || '',
-  description: articles.value?.seo.description || '',
+  headline: 'Li Blog 👋',
+  title: articles.value?.seo?.title || '',
+  description: articles.value?.seo?.description || '',
   link: data.value.ogImage,
 })
 </script>

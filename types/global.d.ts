@@ -65,7 +65,7 @@ declare global {
 
 // 博客相关类型
 export interface BlogPost {
-  _path: string
+  path: string
   title: string
   description: string
   date: string
@@ -155,4 +155,4 @@ export interface PreloadConfig {
   crossorigin?: 'anonymous' | 'use-credentials'
 }
 
-export {}
+export { }

@@ -240,7 +240,6 @@ export default defineNuxtConfig({
     build: {
       // 代码分割优化
       rollupOptions: {
-        external: ['@nuxt/kit', '@nuxt/schema'],
         output: {
           manualChunks: {
             'vue-vendor': ['vue', 'vue-router'],

@@ -6,7 +6,6 @@
  * @Description: 
 -->
 <script lang="ts" setup>
-import type { BlogPost } from '@/types/blog'
 import BlogCard from '~/components/blog/card.vue'
 import BlogEmpty from '~/components/blog/empty.vue'
 import CategoryTopic from '~/components/category/topic.vue'
@@ -24,25 +23,26 @@ const category = computed(() => {
 
 const { data } = await useAsyncData(`category-data-${category.value}`, async () => {
   const articles = await queryContent('/blogs').find()
+  
   return articles.filter((article: any) => {
-    const meta = article.meta as unknown as BlogPost
-    return meta.tags.includes(category.value)
+    // tags字段直接在article对象上，不在meta中
+    const tags = article.tags || []
+    return tags.includes(category.value)
   })
 })
 
 const formattedData = computed(() => {
-  return data.value?.map((articles) => {
-    const meta = articles.meta as unknown as BlogPost
+  return data.value?.map((article) => {
     return {
-      path: articles.path,
-      title: articles.title || 'no-title available',
-      description: articles.description || 'no-description available',
-      image: meta.image || '/blogs-img/blog.jpg',
-      alt: meta.alt || 'no alter data available',
-      ogImage: meta.ogImage || '/blogs-img/blog.jpg',
-      date: meta.date || 'not-date-available',
-      tags: meta.tags || [],
-      published: meta.published || false,
+      path: article._path || article.path || '',
+      title: article.title || 'no-title available',
+      description: article.description || 'no-description available',
+      image: article.image || '/blogs-img/blog.jpg',
+      alt: article.alt || 'no alter data available',
+      ogImage: article.ogImage || '/blogs-img/blog.jpg',
+      date: article.date || 'not-date-available',
+      tags: article.tags || [],
+      published: article.published || false,
     }
   })
 })

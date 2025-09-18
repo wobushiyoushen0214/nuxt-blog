@@ -20,6 +20,7 @@ data.value?.forEach((item) => {
   // 标签数据直接在根级别
   const blogItem = item as { tags?: string[] }
   const tags: Array<string> = blogItem.tags || []
+  
   tags.forEach((tag) => {
     if (allTags.has(tag)) {
       const cnt = allTags.get(tag)
@@ -29,6 +30,9 @@ data.value?.forEach((item) => {
     }
   })
 })
+
+// Convert Map to Array for template rendering
+const tagsArray = Array.from(allTags.entries())
 
 useHead({
   title: 'Categories',
@@ -57,7 +61,7 @@ defineOgImage({
     <main class="container max-w-5xl mx-auto text-zinc-600">
         <CategoryHero />
         <div class="flex flex-wrap px-6 mt-12 gap-3">
-            <CategoryCard v-for="topic in allTags" :key="topic[0]" :title="makeFirstCharUpper(topic[0])"
+            <CategoryCard v-for="topic in tagsArray" :key="topic[0]" :title="makeFirstCharUpper(topic[0])"
                 :count="topic[1]" />
         </div>
     </main>

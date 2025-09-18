@@ -2,7 +2,7 @@
  * @Author: LiZhiWei
  * @Date: 2025-09-15 14:44:39
  * @LastEditors: LiZhiWei
- * @LastEditTime: 2025-09-16 10:28:11
+ * @LastEditTime: 2025-09-18 11:48:01
  * @Description: 
 -->
 <script lang="ts" setup>
@@ -17,7 +17,7 @@ const { data } = await useAsyncData('trending-post', async () =>
       return data?.map((articles: any) => {
         const meta = articles.meta as unknown as BlogPost
         return {
-          path: articles._path,
+          path: articles.path,
           title: articles.title || 'no-title available',
           description: articles.description || 'no-description available',
           image: meta.image || '/not-found.jpg',
@@ -60,7 +60,8 @@ setSeoMeta({
         <!-- 使用 v-memo 缓存静态标题部分 -->
         <div v-memo="[]" class="flex flex-row items-center space-x-4 pt-8 pb-8 animate-slide-up">
             <div class="relative">
-                <Icon name="mdi:trending-up" size="2.5em"
+                <Icon
+name="mdi:trending-up" size="2.5em"
                     class="text-accent-600 dark:text-accent-400 animate-bounce-gentle" />
                 <div class="absolute inset-0 bg-accent-400 rounded-full blur-lg opacity-20 animate-glow"></div>
             </div>
@@ -76,7 +77,8 @@ setSeoMeta({
             <!-- 优化文章卡片渲染，使用稳定的 key -->
             <template v-for="(post, index) in formattedData" :key="`${post.path}-${post.title}`">
                 <div class="animate-slide-up" :style="`animation-delay: ${index * 0.1}s`">
-                    <ArchiveCard :path="post.path" :title="post.title" :date="post.date" :description="post.description"
+                    <ArchiveCard
+:path="post.path" :title="post.title" :date="post.date" :description="post.description"
                         :image="post.image" :alt="post.alt" :og-image="post.ogImage" :tags="post.tags"
                         :published="post.published" />
                 </div>

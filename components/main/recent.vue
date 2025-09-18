@@ -44,7 +44,7 @@ const { data } = await useAsyncData('recent-post', async () =>
         .map((articles: any) => {
           const meta = articles.meta as unknown as BlogPost
           return {
-            path: articles._path,
+            path: articles.path,
             title: articles.title || 'no-title available',
             description: articles.description || 'no-description available',
             image: meta.image || '/not-found.jpg',
